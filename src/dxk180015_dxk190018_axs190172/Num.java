@@ -5,6 +5,12 @@
 // Change following line to your NetId
 package dxk180015_dxk190018_axs190172;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.lang.Math;
+import java.lang.Character;
+
+
 public class Num  implements Comparable<Num> {
 
     static long defaultBase = 10;  // Change as needed
@@ -13,7 +19,33 @@ public class Num  implements Comparable<Num> {
     boolean isNegative;  // boolean flag to represent negative numbers
     int len;  // actual number of elements of array that are used;  number is stored in arr[0..len-1]
 
+    /**
+     * Constructor for Num class; takes a string s as parameter, with a number in decimal, and creates the Num object
+     * representing that number in the chosen base. The string s can be of arbitrary length.
+     * @param s
+     */
     public Num(String s) {
+        len = s.length();
+        int start = 0;
+        if(s.charAt(0) == '-'){
+            isNegative = true;
+            start++;
+            len--;
+        }
+
+        else{
+            isNegative = false;
+        }
+
+        arr = new long[len];
+
+        for (int i = len-1; i >= 0;i--, start++){
+            arr[i] = Character.digit(s.charAt(i), 10);
+        }
+
+        arr = convertBase(arr, 10, 1000000000);
+        this.base = 1000000000;
+        this.len = arr.length;
     }
 
     public Num(long x) {
@@ -72,7 +104,7 @@ public class Num  implements Comparable<Num> {
     public long base() { return base; }
 
     // Return number equal to "this" number, in base=newBase
-    public Num convertBase(int newBase) {
+    public long[] convertBase(long[] arr, int i, int newBase) {
         return null;
     }
 
